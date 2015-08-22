@@ -2,4 +2,4 @@
 # right now, only the multi-runner is included.
 
 include:
-  - .multirunner
+  - gitlab-ci-runner.multirunner
