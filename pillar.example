@@ -1,0 +1,7 @@
+gitlac-ci:
+  runners:
+    multirunner:
+      type: "shell"
+      controller: "http://glci.domain.ext/"
+      key: 234234234efef234234234
+      register: True
