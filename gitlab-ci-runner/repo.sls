@@ -1,6 +1,8 @@
-# Enable HTTPS Transport for Apt
-gitlab-ci-runner-deps-are-installed:
-  pkg.installed
+# Enable HTTPS Transport for Apt, as the GitLab PackageCloud repo uses HTTPS
+gitlab-ci-multi-runner-packagecloud-repo-dependency:
+  pkg.installed:
+    - name: apt-transport-https
+    - require_in: gitlab-ci-multi-runner-packagecloud-repo #We must block the repo as it will break APT if HTTPS was not installed yet!
 
 # Install the actual repo
 gitlab-ci-multi-runner-packagecloud-repo:
@@ -11,4 +13,4 @@ gitlab-ci-multi-runner-packagecloud-repo:
     - file: /etc/apt/sources.list.d/runner_gitlab-ci-multi-runner.list
     - key_url: https://packages.gitlab.com/gpg.key
     - require_in:
-      - pkg: gitlab-ci-multi-runner-package-installed
+      - pkg: gitlab-ci-multi-runner-package-installed # We won't even try to install it if the repo isn't there yet
