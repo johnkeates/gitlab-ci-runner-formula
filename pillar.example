@@ -1,12 +1,17 @@
-gitlac-ci:
+gitlab-ci-runner:
   multirunners:
     runner-1:
-      type: "shell"
-      controller: "http://glci.domain.ext/"
-      key: 234234234efef234234234
+      url: 'http://glci.domain.ext/'
+      token: 234234234efef234234234
+      executor: 'shell'
+      tags: 'tag1,tag2'
       register: True
+      user: 'root'
     runner-2:
-      type: "shell"
-      controller: "http://glci.domain.ext/"
-      key: 234234234efef234234234
+      url: 'http://glci.domain.ext/'
+      token: 234234234efef234234234
+      executor: 'shell'
+      tags: 'tag2,tag3'
       register: True
+      user: 'root'
+

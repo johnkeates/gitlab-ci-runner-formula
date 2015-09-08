@@ -1,0 +1,7 @@
+{% set gitlab_ci_runner = salt['grains.filter_by']({
+    'default': {
+        'config': {
+          'concurrent': 1,
+        },
+    },
+}, merge=salt['pillar.get']('gitlab-ci-runner')) %}
