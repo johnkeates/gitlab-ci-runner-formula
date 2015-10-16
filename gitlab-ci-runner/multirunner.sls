@@ -21,7 +21,7 @@ gitlab-ci-multi-runner-package-installed:
 {% if multirunner.register == True %}
 register-runner-{{ name }}:
   cmd.run:
-    - name: gitlab-ci-multi-runner register -n -r {{ multirunner.token }} -u {{ multirunner.url }} -d {{ name }} -e {{ multirunner.executor }} -t '{{ multirunner.tags }}'
+    - name: gitlab-ci-multi-runner register -n -r {{ multirunner.token }} -u {{ multirunner.url }} -e {{ multirunner.executor }}'
     - user: {{ user }}
     - unless: grep 'name = "{{ name }}"' {{ config_file }}
 
@@ -45,4 +45,3 @@ unregister-runner-{{ name }}:
 {% endif %}
 
 {% endfor %}
-
