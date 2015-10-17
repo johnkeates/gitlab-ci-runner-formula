@@ -21,8 +21,10 @@ gitlab-ci-multi-runner-package-installed:
 {% if multirunner.register == True %}
 register-runner-{{ name }}:
   cmd.run:
-    - name: gitlab-ci-multi-runner register -n --registration-token {{ multirunner.token }} --url {{ multirunner.url }} --executor {{ multirunner.executor }}
+    - name: gitlab-ci-multi-runner register -n --registration-token {{ multirunner.token }} --url {{ multirunner.url }} --executor {{ multirunner.executor }} --name {{ name }}
     - user: {{ user }}
+    # check to make sure we don't over-register the same runner
+    # this depends on the name ending up in the toml file
     - unless: grep 'name = "{{ name }}"' {{ config_file }}
 
 
