@@ -32,7 +32,7 @@ Usage Scenario
 If you have a GitLab setup, you probably need runners. This formula does the basic setup, install and configuration of the runner.
 A basic configuration for a single runner might be:
 
-``
+```
 gitlab-ci-runner:
   multirunners:
     runner-1:
@@ -40,7 +40,7 @@ gitlab-ci-runner:
       token: ercasdxBxasdhasdNbbb
       executor: 'shell'
       register: True
-``
+```
 
 Setting resiter to True registers the runner, setting it to False gracefully de-registers them.
 
