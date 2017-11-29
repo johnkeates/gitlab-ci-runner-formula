@@ -41,3 +41,9 @@ gitlab-ci-runner:
       executor: 'shell'
       register: True
 ``
+
+Setting resiter to True registers the runner, setting it to False gracefully de-registers them.
+
+Todo
+----
+Currently, no additional parameters are supported, but they are easy to implement.
