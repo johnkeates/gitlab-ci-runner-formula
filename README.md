@@ -10,28 +10,34 @@ gltlab-ci-runner
 ----------------
 The init state installs the repo and the runner as both are required for this formula to make sense.
 
-gltlab-ci-runner.runner
------------------------
-Currently only aliases gltlab-ci-runner.multirunner. Once we have more runners, add them here.
+gltlab-ci-runner.repo
+---------------------
+Setup APT repo for the current os_family + oscodename. Not RPM compatible at this time.
 
-gltlab-ci-runner.multirunner
-----------------------------
-Installs the multirunner if it's not installed, configures any runners form the pillar, and
-registers them. This is all done from the commandline and not by writing the toml config directly.
+gltlab-ci-runner.install
+------------------------
+Installs the latest gitlab-runner package
+
+gltlab-ci-runner.config
+-----------------------
+Registers and unregisters runners according to the pillar data.
+
+gltlab-ci-runner.service
+------------------------
+Starts and enables the gitlab-runner service.
+
 
 Usage Scenario
 ==============
-If you have a GitLab-CI setup, you need runners. If you are using salt,
-this formula enables you to fully setup a system or VM. Since you are probably
-using salt to manage your environments, including the one for the application
-you are developing using GitLab and GitLab-CI, it would make sense to manage
-the runner environment as well, as you will most likely need a bunch of DevDeps
-from your existing config on the runner environment too. This way, you can re-use
-that existing salt config.
+If you have a GitLab setup, you probably need runners. This formula does the basic setup, install and configuration of the runner.
+A basic configuration for a single runner might be:
 
-TODO
-====
-
-- Add more runners for cases where the multirunner doesn't fit
-- Split registration off in to register.sls
-- Allow for direct toml manipulation, if needed using a jinja template
+``
+gitlab-ci-runner:
+  multirunners:
+    runner-1:
+      url: 'https://gitlab.domain.com/'
+      token: ercasdxBxasdhasdNbbb
+      executor: 'shell'
+      register: True
+``

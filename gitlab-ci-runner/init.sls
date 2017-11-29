@@ -2,4 +2,6 @@
 
 include:
   - gitlab-ci-runner.repo
-  - gitlab-ci-runner.runner
+  - gitlab-ci-runner.install
+  - gitlab-ci-runner.config
+  - gitlab-ci-runner.service
