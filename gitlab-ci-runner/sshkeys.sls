@@ -7,7 +7,7 @@ add-runner-sshkey-dir:
     - name: {{ssh_key_install_path}}
     - user: gitlab-runner
     - group: gitlab-runner
-    - mode: 600
+    - mode: 700
 
 # loop through all defined multi-runner instances and register/unregister them
 {% for name, keypair in salt['pillar.get']('gitlab-ci-runner:sshkeys', {}).items() %}
@@ -17,7 +17,7 @@ add-runner-sshkey-{{ name }}-public:
     - name: {{ssh_key_install_path}}{{name}}.pub
     - user: gitlab-runner
     - group: gitlab-runner
-    - mode: 600
+    - mode: 644
     - contents_pillar: gitlab-ci-runner:sshkeys:{{name}}:public
 {% endif %}
 
