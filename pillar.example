@@ -14,4 +14,7 @@ gitlab-ci-runner:
       tags: 'tag2,tag3'
       register: True
       user: 'root'
+      options:
+        cache-dir: '/tmp'
+        cache-shared: 'true'
 
