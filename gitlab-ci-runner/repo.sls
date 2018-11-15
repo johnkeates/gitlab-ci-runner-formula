@@ -1,3 +1,4 @@
+{%- if grains['os_family']|lower == 'debian' %}
 # Enable HTTPS Transport for Apt, as the GitLab PackageCloud repo uses HTTPS
 gitlab-ci-multi-runner-repo-repo-dependency:
   pkg.installed:
@@ -28,3 +29,30 @@ gitlab-ci-multi-runner-repo-pin:
                 Package: gitlab-runner
                 Pin: origin packages.gitlab.com
                 Pin-Priority: 1001
+
+{%- elif grains['os_family']|lower == 'redhat' %}
+gitlab-ci-runner-yum-repo:
+  pkgrepo.managed:
+    - name: runner_gitlab-runner
+    - humanname: runner_gitlab-runner
+    - baseurl: https://packages.gitlab.com/runner/gitlab-runner/el/{{ grains['osmajorrelease']|lower }}/$basearch
+    - repo_gpgcheck: 1
+    - gpgcheck: 0
+    - gpgkey: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+    - sslverify: 1
+    - sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    - metadata_expire: 300
+
+gitlab-ci-runner-yum-repo-source:
+  pkgrepo.managed:
+    - name: runner_gitlab-runner-source
+    - humanname: runner_gitlab-runner-source
+    - baseurl: https://packages.gitlab.com/runner/gitlab-runner/el/{{ grains['osmajorrelease']|lower }}/SRPMS
+    - repo_gpgcheck: 1
+    - gpgcheck: 0
+    - gpgkey: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+    - sslverify: 1
+    - sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    - metadata_expire: 300
+
+{% endif %}
